@@ -20,7 +20,7 @@
     { name: '新疆' }, { name: '江苏' }, { name: '浙江' }, { name: '江西' }, { name: '湖北' }, { name: '广西' }, { name: '甘肃' }, { name: '山西' }, { name: '内蒙古' }, { name: '陕西' }, { name: '吉林' }, { name: '福建' }, { name: '贵州' },
     { name: '广东' }, { name: '青海' }, { name: '西藏' }, { name: '四川' }, { name: '宁夏' }, { name: '海南' }, { name: '台湾' }, { name: '香港' }, { name: '澳门' }]
     // 需要在页面上直接标记出来的城市
-    var specialMap = ['北京', '辽宁', '四川','天津','上海','吉林','安徽','黑龙江','南京','湖北','湖南','甘肃','香港','河北','广东','福建'];
+    var specialMap = ['北京', '辽宁', '四川','天津','上海','吉林','安徽','黑龙江','江苏','湖北','湖南','甘肃','香港','河北','广东','福建'];
     // 对dataMap进行处理，使其可以直接在页面上展示
     for (var i = 0; i < specialMap.length; i++) {
         for (var j = 0; j < dataMap.length; j++) {
@@ -112,7 +112,7 @@
 					return info
 				}
 				
-				if(params.name == '南京'){
+				if(params.name == '江苏'){
 					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">梁佳乐 东南大学 城乡规划</p>'
 					info += '<p style="font-size:14px;line-height:8px">许章鹏 东南大学 化工与制药</p>'
 					info += '<p style="font-size:14px;line-height:8px">魏翰泽 东南大学 能源与动力</p>'
