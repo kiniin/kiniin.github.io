@@ -1,0 +1,210 @@
+<!doctype html>
+<html>
+
+<head>
+<meta charset="utf-8">
+<title>六班蹭饭图</title>
+<script src="http://code.jquery.com/jquery-1.12.1.min.js"></script>
+<script src="js/echarts.min.js"></script>
+<script src="js/china.js"></script>
+</head>
+
+<body>
+<h1 style="text-align: center;">六班蹭饭地图</h1>
+<p style="text-align: center;">(没地放的: 王子豪 新西兰奥克兰大学 数学)</p>
+<div id="container" style="height: 800px;width:1200px;background:white;margin:auto;"></div>
+
+<script type="text/javascript">
+    // 全国省份列表
+    var dataMap = [{ name: '北京' }, { name: '天津' }, { name: '上海' }, { name: '重庆' }, { name: '河北' }, { name: '河南' }, { name: '云南' }, { name: '辽宁' }, { name: '黑龙江' }, { name: '湖南' }, { name: '安徽' }, { name: '山东' },
+    { name: '新疆' }, { name: '江苏' }, { name: '浙江' }, { name: '江西' }, { name: '湖北' }, { name: '广西' }, { name: '甘肃' }, { name: '山西' }, { name: '内蒙古' }, { name: '陕西' }, { name: '吉林' }, { name: '福建' }, { name: '贵州' },
+    { name: '广东' }, { name: '青海' }, { name: '西藏' }, { name: '四川' }, { name: '宁夏' }, { name: '海南' }, { name: '台湾' }, { name: '香港' }, { name: '澳门' }]
+    // 需要在页面上直接标记出来的城市
+    var specialMap = ['北京', '辽宁', '四川','天津','上海','吉林','安徽','黑龙江','南京','湖北','湖南','甘肃','香港','河北','广东','福建'];
+    // 对dataMap进行处理，使其可以直接在页面上展示
+    for (var i = 0; i < specialMap.length; i++) {
+        for (var j = 0; j < dataMap.length; j++) {
+            if (specialMap[i] == dataMap[j].name) {
+                dataMap[j].selected = true;
+                break;
+            }
+
+        }
+    }
+    // 绘制图表，准备数据
+    var option = {
+        tooltip: {
+            formatter: function (params) {
+                var info = '<p style="font-size:14px">' + params.name + '</p><p style="font-size:14px">没人在这儿上大学哦亲~</p>'
+				
+				if(params.name == '北京'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">张卓豪 北京大学 生物类</p>'
+					info += '<p style="font-size:14px;line-height:8px">郑淙文 中国传媒大学 播音主持</p>'
+					info += '<p style="font-size:14px;line-height:8px">王宇新 北京航空航天大学 工科实验班</p>'
+					info += '<p style="font-size:14px;line-height:8px">马浩然 北京航空航天大学 信息</p>'
+					info += '<p style="font-size:14px;line-height:8px">赵阅坤 北京交通大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">闫林鹏 北京交通大学 机械类</p>'
+					info += '<p style="font-size:14px;line-height:8px">叶根诚 北京交通大学 实验班</p>'
+					info += '<p style="font-size:14px;line-height:8px">朱一瞳 北京科技大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">秦宇辰 北京理工大学 工科实验班</p>'
+					info += '<p style="font-size:14px;line-height:8px">张楚琪 北京林业大学 园林设计</p>'
+					info += '<p style="font-size:14px;line-height:8px">陈奕舟 北京邮电大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">宿腾皓 北京邮电大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">张金鹏 北京邮电大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">王鹏 北京邮电大学 创新与设计实验班</p>'
+					info += '<p style="font-size:14px;line-height:8px">杨秭乾 中国农业大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">梁琪悦 中国社会科学院大学</p>'
+					return info
+				}
+				
+				if(params.name == '辽宁'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">唐一涵 大连理工 建筑学</p>'
+					info += '<p style="font-size:14px;line-height:8px">刘笑丹 东北大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">马泽祺 东北大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">任子洋 东北大学 自动化</p>'
+					return info
+				}
+				
+				if(params.name == '四川'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">钟一尧 电子科技大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">杜家琛 四川大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">冯昊乾 四川大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">胡怡婷 四川大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">李文秀 四川大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">贾雯君 西南交通大学 建筑学</p>'
+					info += '<p style="font-size:14px;line-height:8px">李卓澜 西南财经大学</p>'
+					return info
+				}
+				
+				if(params.name == '天津'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">周玉杰 天津大学 工业设计</p>'
+					info += '<p style="font-size:14px;line-height:8px">凡文博 南开大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">石轶凡 南开大学 化学类</p>'
+					return info
+				}
+				
+				if(params.name == '上海'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">郑晓宇 东华大学 材料类</p>'
+					info += '<p style="font-size:14px;line-height:8px">张紫曦 复旦大学 经济管理</p>'
+					info += '<p style="font-size:14px;line-height:8px">王骥 复旦大学 经济学</p>'
+					info += '<p style="font-size:14px;line-height:8px">张埔源 上海财经</p>'
+					info += '<p style="font-size:14px;line-height:8px">王雨萱 上海财经 金融学</p>'
+					info += '<p style="font-size:14px;line-height:8px">刘宇航 上海财经 经济</p>'
+					info += '<p style="font-size:14px;line-height:8px">吴宏根 上海交大医学院</p>'
+					info += '<p style="font-size:14px;line-height:8px">高东浩 同济大学 土木工程</p>'
+					return info
+				}
+				
+				if(params.name == '吉林'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">董浩楠 吉林大学 会计学</p>'
+					info += '<p style="font-size:14px;line-height:8px">符瑞杰 吉林大学 自动化</p>'
+					return info
+				}
+				
+				if(params.name == '安徽'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">魏海洋 安徽大学 计算机</p>'
+					info += '<p style="font-size:14px;line-height:8px">黄海庞 合肥工业大学</p>'
+					return info
+				}
+				
+				if(params.name == '黑龙江'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">鄢正宇 哈尔滨工业大学 材料学</p>'
+					return info
+				}
+				
+				if(params.name == '南京'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">梁佳乐 东南大学 城乡规划</p>'
+					info += '<p style="font-size:14px;line-height:8px">许章鹏 东南大学 化工与制药</p>'
+					info += '<p style="font-size:14px;line-height:8px">魏翰泽 东南大学 能源与动力</p>'
+					info += '<p style="font-size:14px;line-height:8px">李阳 河海大学 信息工程</p>'
+					info += '<p style="font-size:14px;line-height:8px">向玉龙 南京航空航天大学 飞行器动力工程</p>'
+					return info
+				}
+				
+				if(params.name == '湖北'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">李博洋 武汉大学 遥感</p>'
+					info += '<p style="font-size:14px;line-height:8px">张梓怡 中南财经政法大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">李雨萌 中南财经政法大学 金融数学</p>'
+					info += '<p style="font-size:14px;line-height:8px">刘天航 华中科技大学 自动化</p>'
+					info += '<p style="font-size:14px;line-height:8px">向玉龙 南京航空航天大学 飞行器动力工程</p>'
+					return info
+				}
+				
+				if(params.name == '湖南'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">史寒煜 湖南大学 材料与工程</p>'
+					return info
+				}
+				
+				if(params.name == '甘肃'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">栗一康 兰州大学 草业科学</p>'
+					return info
+				}
+				
+				if(params.name == '香港'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">马霖楷 香港理工 投资学</p>'
+					return info
+				}
+				
+				if(params.name == '河北'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">张晋 河北医科大学 口腔医学</p>'
+					info += '<p style="font-size:14px;line-height:8px">杨若嘉 华北电力大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">张冬玥 华北电力大学 管理科学与工程</p>'
+					return info
+				}
+				
+				if(params.name == '广东'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">王灵犀 深圳大学 临床医学</p>'
+					info += '<p style="font-size:14px;line-height:8px">高学凤 深圳大学 数学</p>'
+					return info
+				}
+				
+				if(params.name == '福建'){
+					var info = '<p style="font-size:18px">' + params.name + '</p><p style="font-size:14px;line-height:8px">牛元辰 厦门大学</p>'
+					info += '<p style="font-size:14px;line-height:8px">陈彬彬 厦门大学 物理</p>'
+					return info
+				}
+				
+                return info;
+            },
+            backgroundColor: "#ff7f50",//提示标签背景颜色
+            textStyle: { color: "#fff" } //提示标签字体颜色
+        },
+        series: [
+            {
+                name: '中国',
+                type: 'map',
+                mapType: 'china',
+                selectedMode: 'multiple',
+                label: {
+                    normal: {
+                        show: true,//显示省份标签
+                        // textStyle:{color:"#c71585"}//省份标签字体颜色
+                    },
+                    emphasis: {
+                        show: true,//对应的鼠标悬浮效果
+                        // textStyle:{color:"#800080"}
+                    }
+                },
+                itemStyle: {
+                    normal: {
+                        borderWidth: .5,//区域边框宽度
+                        // borderColor: '#009fe8',//区域边框颜色
+                        // areaColor:"#ffefd5",//区域颜色
+                    },
+                    emphasis: {
+                        borderWidth: .5,
+                        borderColor: '#4b0082',
+                        areaColor: "#ffdead",
+                    }
+                },
+                data: dataMap
+            }
+        ]
+    };
+    //初始化echarts实例
+    var myChart = echarts.init(document.getElementById('container'));
+    //使用制定的配置项和数据显示图表
+    myChart.setOption(option);
+</script>
+</body>
+</html>
